@@ -2,11 +2,11 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-import GoBack from "./GoBack";
+import GoBack from "./components/GoBack";
 
-import { NoMatch } from "./NoMatch";
-import { LinkList } from "./LinkList";
-import { LinkDetail } from "./LinkDetail";
+import { NoMatch } from "./components/NoMatch";
+import { LinkList } from "./components/Linklist";
+import { LinkDetail } from "./components/LinkDetail";
 import "./index.css";
 
 
@@ -42,9 +42,7 @@ function App() {
 
         <hr />
 
-  return (
-
-          <Switch>
+        <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/links" component={LinkList} />
           <Route path="/links/:id" component={LinkDetail} />
@@ -52,7 +50,6 @@ function App() {
         </Switch>
       </div>
     </Router>
-
   );
 }
 
