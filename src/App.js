@@ -1,56 +1,54 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-
-import GoBack from "./components/GoBack";
-
-import { NoMatch } from "./components/NoMatch";
-import { LinkList } from "./components/Linklist";
-import { LinkDetail } from "./components/LinkDetail";
-import "./index.css";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 
 
-function App() {
-  const Home = () => (
-    <div>
-      <h2>Home</h2>
-      <p>
-        This is a home page, there are many like it but this one is mine, without
-        this homepage, the application has less structure, with it, the
-        application can easily move between pages.
-      </p>
-    </div>
+
+export default function App() {
+  const [Case, setCases] = useState();
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const { data } = await axios.get('http://localhost:8080'
+      )
+      setCases(data)
+      console.log(data)
+    };
+    fetchData();
+  }, []);
+
+  return (
+
+
+
+
+    <div className="App">
+      <h1>Covid Cases in Hong Kong</h1>
+      <Row>
+        {Case &&
+
+          Case.map((Case, index) =>
+
+            <Col xs="3">
+              <Card body>
+                <CardTitle tag="h5" key={index}>District:{Case.district}</CardTitle>
+                <CardText>Adress:{Case.address}</CardText>
+                <CardText>Case:{Case.count}</CardText>
+              </Card>
+            </Col>
+
+
+            // {/* <p key={index}>  District:{Case.district} </p> */ }
+            // {/* <p>Adress:{Case.address}</p> <p>Case:{Case.count}</p> */ }
+            // {/* <hr></hr> */ }
+
+          )
+        }
+
+      </Row>
+
+    </div >
   );
 
-  const BasicExample = () => (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/links">Links</Link>
-          </li>
-          <li>
-            <Link to="/reallyInvalidUrl">Invalid Page</Link>
-          </li>
-          <li>
-            <GoBack />
-          </li>
-        </ul>
-
-        <hr />
-
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/links" component={LinkList} />
-          <Route path="/links/:id" component={LinkDetail} />
-          <Route component={NoMatch} />
-        </Switch>
-      </div>
-    </Router>
-  );
 }
-
-export default App;

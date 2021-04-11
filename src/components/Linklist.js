@@ -13,9 +13,10 @@ export const LinkList = () => (
                     <br />
                     <Link to={`/links/${index}`}>&lt;Link&gt;</Link>
                     <br />
-                    <Link to={{pathname: `/links/${index}`,
-                                state: { extraInformation: true }
-                        }}>
+                    <Link to={{
+                        pathname: `/links/${index}`,
+                        state: { extraInformation: true }
+                    }}>
                         {"<Link>"} with extra information
                     </Link>
                     <br />
